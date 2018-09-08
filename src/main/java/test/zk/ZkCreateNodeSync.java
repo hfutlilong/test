@@ -4,6 +4,9 @@ import org.apache.zookeeper.*;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 同步创建节点
+ */
 public class ZkCreateNodeSync implements Watcher {
     private static CountDownLatch connectedSemophore = new CountDownLatch(1);
 

@@ -6,6 +6,9 @@ import org.apache.zookeeper.ZooKeeper;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 使用sessionId和Password创建连接
+ */
 public class ZkWithPwd implements Watcher {
     private static CountDownLatch connectedSemophore = new CountDownLatch(1);
 

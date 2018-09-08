@@ -6,6 +6,9 @@ import org.apache.zookeeper.ZooKeeper;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 创建连接
+ */
 public class ZkSimple implements Watcher {
     private static CountDownLatch connectedSemophore = new CountDownLatch(1);
 
