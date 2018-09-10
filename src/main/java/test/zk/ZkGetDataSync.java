@@ -9,14 +9,14 @@ import java.util.concurrent.CountDownLatch;
  * 同步获取节点数据
  */
 public class ZkGetDataSync implements Watcher {
-    private static CountDownLatch connectedSemophore = new CountDownLatch(1);
+    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
     private static ZooKeeper zk = null;
     private static Stat stat = new Stat();
 
     public static void main(String[] args) throws Exception {
         String path = "/zk-book";
         zk = new ZooKeeper("192.168.145.130:2181", 5000, new ZkGetDataSync());
-        connectedSemophore.await();
+        connectedSemaphore.await();
 
         zk.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         System.out.println(new String(zk.getData(path, true, stat)));
@@ -32,7 +32,7 @@ public class ZkGetDataSync implements Watcher {
         System.out.println("Received event:" + event);
         if (Event.KeeperState.SyncConnected == event.getState()) {
             if (Event.EventType.None == event.getType() && null == event.getPath()) {
-                connectedSemophore.countDown();
+                connectedSemaphore.countDown();
             } else if (Event.EventType.NodeDataChanged == event.getType()) {
                 try {
                     System.out.println(new String(zk.getData(event.getPath(), true, stat)));

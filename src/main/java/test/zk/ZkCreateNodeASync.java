@@ -8,11 +8,11 @@ import java.util.concurrent.CountDownLatch;
  * 异步创建节点
  */
 public class ZkCreateNodeASync implements Watcher {
-    private static CountDownLatch connectedSemophore = new CountDownLatch(1);
+    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
         ZooKeeper zk = new ZooKeeper("192.168.145.130:2181", 5000, new ZkCreateNodeASync());
-        connectedSemophore.await();
+        connectedSemaphore.await();
 
         zk.create("/zk-test-ephemeral-", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL,
                 new IStringCallback(), "I am context.");
@@ -30,7 +30,7 @@ public class ZkCreateNodeASync implements Watcher {
     public void process(WatchedEvent event) {
         System.out.println("Received event:" + event);
         if (Event.KeeperState.SyncConnected == event.getState()) {
-            connectedSemophore.countDown();
+            connectedSemaphore.countDown();
         }
     }
 }

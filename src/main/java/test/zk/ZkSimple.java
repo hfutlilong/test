@@ -10,13 +10,13 @@ import java.util.concurrent.CountDownLatch;
  * 创建连接
  */
 public class ZkSimple implements Watcher {
-    private static CountDownLatch connectedSemophore = new CountDownLatch(1);
+    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
         ZooKeeper zk = new ZooKeeper("192.168.145.130:2181", 5000, new ZkSimple());
         System.out.println(zk.getState());
         try {
-            connectedSemophore.await();
+            connectedSemaphore.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class ZkSimple implements Watcher {
     public void process(WatchedEvent event){
         System.out.println("Receice watched event:" + event);
         if (Event.KeeperState.SyncConnected == event.getState()) {
-            connectedSemophore.countDown();
+            connectedSemaphore.countDown();
         }
     }
 }

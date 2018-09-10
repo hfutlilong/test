@@ -10,11 +10,11 @@ import java.util.concurrent.CountDownLatch;
  * 使用sessionId和Password创建连接
  */
 public class ZkWithPwd implements Watcher {
-    private static CountDownLatch connectedSemophore = new CountDownLatch(1);
+    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
         ZooKeeper zk = new ZooKeeper("192.168.145.130:2181", 5000, new ZkWithPwd());
-        connectedSemophore.await();
+        connectedSemaphore.await();
 
         long sessionId = zk.getSessionId();
         byte[] pwd = zk.getSessionPasswd();
@@ -34,7 +34,7 @@ public class ZkWithPwd implements Watcher {
     public void process(WatchedEvent event){
         System.out.println("Receive watched event:" + event);
         if (Event.KeeperState.SyncConnected == event.getState()) {
-            connectedSemophore.countDown();
+            connectedSemaphore.countDown();
         }
     }
 }

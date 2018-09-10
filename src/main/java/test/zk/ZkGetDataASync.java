@@ -6,13 +6,13 @@ import org.apache.zookeeper.data.Stat;
 import java.util.concurrent.CountDownLatch;
 
 public class ZkGetDataASync implements Watcher {
-    private static CountDownLatch connectedSemophore = new CountDownLatch(1);
+    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
     private static ZooKeeper zk;
 
     public static void main(String[] args) throws Exception {
         String path = "/zk-book";
         zk = new ZooKeeper("192.168.145.130:2181", 5000, new ZkGetDataASync());
-        connectedSemophore.await();
+        connectedSemaphore.await();
 
         zk.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         zk.getData(path, true, new IDataCallback(), null);
@@ -24,7 +24,7 @@ public class ZkGetDataASync implements Watcher {
     public void process(WatchedEvent event) {
         if (Event.KeeperState.SyncConnected == event.getState()) {
             if (Event.EventType.None == event.getType() && null == event.getPath()) {
-                connectedSemophore.countDown();
+                connectedSemaphore.countDown();
             } else if (Event.EventType.NodeDataChanged == event.getType()) {
                 try {
                     zk.getData(event.getPath(), true, new IDataCallback(), null);
