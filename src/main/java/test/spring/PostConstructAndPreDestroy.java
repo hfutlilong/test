@@ -1,4 +1,4 @@
-package test;
+package test.spring;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

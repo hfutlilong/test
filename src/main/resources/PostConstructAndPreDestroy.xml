@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config />
-    <bean id="postConstructAndPreDestroy" class="test.PostConstructAndPreDestroy">
+    <bean id="postConstructAndPreDestroy" class="test.spring.PostConstructAndPreDestroy">
         <property name="message" value="i'm property message" />
     </bean>
 </beans>
