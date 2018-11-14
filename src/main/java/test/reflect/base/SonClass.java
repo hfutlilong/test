@@ -1,9 +1,9 @@
-package test.reflect;
+package test.reflect.base;
 
 /**
  * @Description TODO
  * @Author lilong
- * @Date 2018-11-13 21:50
+ * @Date 2018-11-14 11:42
  */
 public class SonClass extends FatherClass{
 
