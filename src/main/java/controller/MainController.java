@@ -1,10 +1,12 @@
 package controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.TestKafkaService;
+import service.TestService;
 import service.User1Service;
 
 import javax.annotation.Resource;
@@ -17,6 +19,9 @@ public class MainController {
 
     @Resource
     private User1Service user1Service;
+
+    @Autowired
+    private TestService testService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
@@ -50,5 +55,12 @@ public class MainController {
 //        user1Service.insert();
 //        return "U are 666!";
 //    }
+
+    @RequestMapping("/test/async")
+    @ResponseBody
+    public String testAsync() {
+        testService.testAsync();
+        return "game over";
+    }
 }
 
