@@ -23,6 +23,11 @@ public class MainController {
     @Autowired
     private TestService testService;
 
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello(){
+        return "hello";
+    }
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
     public String welcome(){
