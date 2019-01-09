@@ -18,8 +18,10 @@
     <import resource="classpath:kafka-producer.xml" />
     <!--<import resource="classpath:spring-WebSocket.xml" />-->
     <import resource="classpath:database.xml" />
-    <!-- dubbo服务 -->
+    <!-- dubbo提供者 -->
     <import resource="classpath:dubbo-provider.xml" />
+    <!-- dubbo消费者 -->
+    <import resource="classpath:dubbo-consumer.xml" />
 
     <!--支持异步任务 @Async-->
     <task:executor id="executor" pool-size="8"/>
