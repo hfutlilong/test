@@ -10,4 +10,6 @@ public interface TestService {
      * 测试@Async标签
      */
     void testAsync();
+
+    void test();
 }

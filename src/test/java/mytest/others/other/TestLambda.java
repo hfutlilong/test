@@ -18,9 +18,9 @@ public class TestLambda {
 //
 //        userIdList.forEach(System.out::println);
 
-        list.sort((UserInfo order1, UserInfo order2) -> order2.getId().compareTo(order1.getId()));
+//        list.sort((UserInfo order1, UserInfo order2) -> order2.getId().compareTo(order1.getId()));
 //
-    //        list.sort(Comparator.comparing(UserInfo::getId, Comparator.nullsLast(Comparator.reverseOrder())));
+            list.sort(Comparator.comparing(UserInfo::getId, Comparator.nullsLast(Comparator.reverseOrder())));
 
         list.forEach(s -> System.out.println(s.getId()));
     }

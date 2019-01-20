@@ -33,4 +33,9 @@ public class TestServiceImpl implements TestService {
 //        Thread.sleep(5000);
 //        System.out.println("异步任务执行完了");
 //    }
+
+    @Override
+    public void test() {
+        System.out.println("oh, yeah");
+    }
 }
