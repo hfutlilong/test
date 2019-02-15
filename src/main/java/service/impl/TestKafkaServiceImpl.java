@@ -14,7 +14,18 @@ public class TestKafkaServiceImpl implements TestKafkaService {
 
     @Override
     public void testKafkaSend() {
-        kafkaTemplate.sendDefault("BigLong Test Kafka Send Message.");
+        String json = "{\n" +
+                "   \"goodsCommentId\":\"commentId0001\",\n" +
+                "   \"commentContent\":\"商品评价详情\",\n" +
+                "   \"commentPoint\":5,\n" +
+                "   \"goodsId\":111111,\n" +
+                "   \"skuId\":\"string\",\n" +
+                "   \"antispamStatus\":-2,\n" +
+                "   \"sellerType\": 0,\n" +
+                "   \"containKeyword\": 0,\n" +
+                "   \"createTime\": 1548502980000\n" +
+                "}";
+        kafkaTemplate.sendDefault(json);
         System.out.println("##### 发送成功！");
     }
 
