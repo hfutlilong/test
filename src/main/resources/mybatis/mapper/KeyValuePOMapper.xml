@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.gen.mapper.KeyValuePOMapper">
+  <resultMap id="BaseResultMap" type="dao.gen.po.KeyValuePO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="biz_type" jdbcType="VARCHAR" property="bizType" typeHandler="handler.KeyValueBizTypeEnumTypeHandler" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="db_update_time" jdbcType="TIMESTAMP" property="dbUpdateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.bizTypeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.KeyValueBizTypeEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.bizTypeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.KeyValueBizTypeEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, biz_type, `key`, `value`, create_time, db_update_time
+  </sql>
+  <select id="selectByExample" parameterType="dao.gen.po.KeyValuePOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from key_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from key_value
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from key_value
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dao.gen.po.KeyValuePO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into key_value (biz_type, 
+      `key`, `value`, create_time, 
+      db_update_time)
+    values (#{bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler}, 
+      #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{dbUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="dao.gen.po.KeyValuePO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into key_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="value != null">
+        `value`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizType != null">
+        #{bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dao.gen.po.KeyValuePOExample" resultType="java.lang.Long">
+    select count(*) from key_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update key_value
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bizType != null">
+        biz_type = #{record.bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        `value` = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbUpdateTime != null">
+        db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update key_value
+    set id = #{record.id,jdbcType=BIGINT},
+      biz_type = #{record.bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      `value` = #{record.value,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dao.gen.po.KeyValuePO">
+    update key_value
+    <set>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler},
+      </if>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        `value` = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dao.gen.po.KeyValuePO">
+    update key_value
+    set biz_type = #{bizType,jdbcType=VARCHAR,typeHandler=handler.KeyValueBizTypeEnumTypeHandler},
+      `key` = #{key,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
