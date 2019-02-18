@@ -1,7 +1,8 @@
 package mytest.others.sort;
 
 /**
- * @Description TODO
+ * @Description 快速排序
+ *
  * @Author lilong
  * @Date 2019-02-18 10:30
  */
