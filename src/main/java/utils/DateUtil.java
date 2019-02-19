@@ -57,6 +57,9 @@ public class DateUtil {
     // 一天的毫秒数
     public static final long MS_ONE_DAY = 24*60*60*1000L;
     public static final String H_24_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String H_24_FORMAT_2 = "yyyy年MM月dd日 HH:mm:ss";
+    public static final String H_24_FORMAT_MS = "yyyy-MM-dd HH:mm:ss.SSS";
+    public static final String H_24_FORMAT_MM = "yyyy-MM-dd HH:mm";
 
     // 一小时的毫秒数
     public static final long MS_ONE_HOUSE = 60*60*1000L;
@@ -529,6 +532,17 @@ public class DateUtil {
     public static Timestamp getIntervalTimestamp(Timestamp ts, int minutes) {
 
         return new Timestamp(ts.getTime() + minutes * 60 * 1000L);
+    }
+
+    /**
+     * 获得指定时间间隔之前的timestamp
+     * @param ts
+     * @param minutes
+     * @return
+     */
+    public static Timestamp getBeforeIntervalTimestamp(Timestamp ts, int minutes) {
+
+        return new Timestamp(ts.getTime() - minutes * 60 * 1000L);
     }
 
     @SuppressWarnings("deprecation")
@@ -1157,4 +1171,28 @@ public class DateUtil {
         }
         return resultSB.toString();
     }
+
+    /**
+     * 获取昨天指定时间的日期时间
+     * @param time 时间点，格式：HH:mm:ss
+     * @return
+     */
+    public static Timestamp getYesterdaySpecificTimestamp(String time) {
+        Date yesterday = getYesterDay();
+        String date = formatDate(yesterday, FMT_DATE_YYYYMMDD);
+        String dateTimeStr = date + " " + time;
+        return formatToTimestamp(dateTimeStr, H_24_FORMAT_MM);
+    }
+
+    /**
+     * 获取昨天指定时间的日期时间
+     * @param time 时间点，格式：HH:mm:ss
+     * @return
+     */
+    public static Timestamp getTodaySpecificTimestamp(String time) {
+        String date = formatDate(new Date(), FMT_DATE_YYYYMMDD);
+        String dateTimeStr = date + " " +  time;
+        return formatToTimestamp(dateTimeStr, H_24_FORMAT_MM);
+    }
 }
+
