@@ -6,4 +6,6 @@ package service.guid;
  */
 public interface IdGenerator<T> {
     T generateId();
+
+
 }

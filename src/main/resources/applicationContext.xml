@@ -12,6 +12,8 @@
         http://www.springframework.org/schema/task/spring-task.xsd">
     <context:component-scan base-package="service,transcational,dubbo" />
 
+    <bean class="utils.SpringContextUtil" />
+
     <!--<import resource="classpath:quartz-service.xml"/>-->
     <!--<import resource="classpath:simple-quartz-service.xml"/>-->
     <import resource="classpath:kafka-consumer.xml" />
