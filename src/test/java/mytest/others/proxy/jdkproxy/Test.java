@@ -1,4 +1,4 @@
-package mytest.others.proxy.javaproxy;
+package mytest.others.proxy.jdkproxy;
 
 import mytest.others.proxy.staticproxy.Hello;
 import mytest.others.proxy.staticproxy.HelloImpl;
@@ -14,7 +14,7 @@ public class Test {
     public static void main(String[] args) {
         Hello hello = new HelloImpl();
 
-        DynamicProxy dynamicProxyHandler = new DynamicProxy(hello);
+        JDKProxy dynamicProxyHandler = new JDKProxy(hello);
 
         Hello helloProxy = (Hello) Proxy.newProxyInstance(
                 hello.getClass().getClassLoader(),

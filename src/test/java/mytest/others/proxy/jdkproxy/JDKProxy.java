@@ -1,4 +1,4 @@
-package mytest.others.proxy.javaproxy;
+package mytest.others.proxy.jdkproxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
  * @Author lilong
  * @Date 2019-02-23 15:32
  */
-public class DynamicProxy implements InvocationHandler {
+public class JDKProxy implements InvocationHandler {
     //能代理任意一个类
     private Object target;
 
-    public DynamicProxy(Object target) {
+    public JDKProxy(Object target) {
         this.target = target;
     }
 
