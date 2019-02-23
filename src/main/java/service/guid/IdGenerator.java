@@ -16,5 +16,5 @@ public interface IdGenerator<T> {
      * @param id
      * @return
      */
-    GuidBO parseId(Long id);
+    GuidBO parseGUID(Long id);
 }

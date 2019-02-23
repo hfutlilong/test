@@ -1,6 +1,7 @@
 package service.guid;
 
-import com.netease.haitao.core.fastjson.FastJsonUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.Feature;
 import common.enums.KeyValueBizTypeEnum;
 import dao.gen.mapper.KeyValuePOMapperExt;
 import dao.gen.po.KeyValuePO;
@@ -84,7 +85,7 @@ public class DbWorkIdResolver implements WorkIdResolver {
 
                     if (CollectionUtils.isNotEmpty(keyValuePOList)) {
                         KeyValuePO keyValuePO = keyValuePOList.get(0);
-                        WorkIdData workIdData = FastJsonUtil.parse(keyValuePO.getValue(), WorkIdData.class);
+                        WorkIdData workIdData =  JSON.parseObject(keyValuePO.getValue(), WorkIdData.class);
                         Map<String, Long> workIdsMap = workIdData.getWorkIdsMap();
 
                         if (null != workIdsMap.get(ipKey)) {
@@ -97,7 +98,7 @@ public class DbWorkIdResolver implements WorkIdResolver {
                             //根据DbUpdateTime字段使用乐观锁
                             keyValuePOExample.getOredCriteria().get(0).andDbUpdateTimeEqualTo(keyValuePO.getDbUpdateTime());
                             KeyValuePO updatePO = new KeyValuePO();
-                            updatePO.setValue(FastJsonUtil.toJSONString(workIdData));
+                            updatePO.setValue(JSON.toJSONString(workIdData));
                             int updateCount = keyValuePOMapper.updateByExampleSelective(updatePO, keyValuePOExample);
                             if (updateCount == 1) {
                                 workId = workIdsMap.get(ipKey);
@@ -114,7 +115,7 @@ public class DbWorkIdResolver implements WorkIdResolver {
                         KeyValuePO insertPO = new KeyValuePO();
                         insertPO.setKey(KEY);
                         insertPO.setBizType(KeyValueBizTypeEnum.DEFAULT);
-                        insertPO.setValue(FastJsonUtil.toJSONString(workIdData));
+                        insertPO.setValue(JSON.toJSONString(workIdData));
                         int insertCount = keyValuePOMapper.insertSelective(insertPO);
                         if (insertCount == 1) {
                             workId = workIdsMap.get(ipKey);
@@ -183,6 +184,36 @@ public class DbWorkIdResolver implements WorkIdResolver {
         public String toString() {
             return "WorkIdData{" + "workIdsMap=" + workIdsMap + ", lastWorkId=" + lastWorkId + '}';
         }
+    }
+
+    @Override
+    public String parseWorkerIp(Long workId) {
+        if (workId == null) {
+            return null;
+        }
+
+        KeyValuePOExample keyValuePOExample = new KeyValuePOExample();
+        keyValuePOExample.createCriteria().andKeyEqualTo(KEY).andBizTypeEqualTo(KeyValueBizTypeEnum.DEFAULT);
+        List<KeyValuePO> keyValuePOList = keyValuePOMapper.selectByExample(keyValuePOExample);
+
+        if (CollectionUtils.isEmpty(keyValuePOList)) {
+            return null;
+        }
+
+        KeyValuePO keyValuePO = keyValuePOList.get(0);
+        WorkIdData workIdData =  JSON.parseObject(keyValuePO.getValue(), WorkIdData.class);
+        Map<String, Long> workIdsMap = workIdData.getWorkIdsMap();
+
+        for (Map.Entry<String, Long> entry : workIdsMap.entrySet()) {
+            String key = entry.getKey();
+            Long value = entry.getValue();
+
+            if (workId.equals(value)) {
+                return key.replaceAll("_", "\\.");
+            }
+        }
+
+        return null;
     }
 
 }

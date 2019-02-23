@@ -14,4 +14,7 @@ public abstract class BaseWorkIdIdGenerator<T> implements IdGenerator<T> {
         return workIdResolver.resolveWorkId();
     }
 
+    protected String parseWorkerIp(Long workId) {
+        return workIdResolver.parseWorkerIp(workId);
+    }
 }

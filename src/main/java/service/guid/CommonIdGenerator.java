@@ -2,6 +2,7 @@ package service.guid;
 
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -22,6 +23,8 @@ public class CommonIdGenerator extends BaseWorkIdIdGenerator<Long> {
     private static final long WORKER_ID_BITS = 10L; // 10位workId号
 
     private static final long SEQUENCE_MASK = (1 << SEQUENCE_BITS) - 1;
+
+    private static final long WORK_ID_MASK = (1 << WORKER_ID_BITS) - 1; // 10位workId掩码
 
     private static final long WORKER_ID_LEFT_SHIFT_BITS = SEQUENCE_BITS;
 
@@ -81,9 +84,24 @@ public class CommonIdGenerator extends BaseWorkIdIdGenerator<Long> {
     }
 
     @Override
-    public GuidBO parseId(Long id) {
+    public GuidBO parseGUID(Long id) {
+        GuidBO guidBO = new GuidBO();
 
-        return null;
+        //1.时间戳
+        long generateTimeLong = (id >> TIMESTAMP_LEFT_SHIFT_BITS) + START_TIME_MILLIS;
+        guidBO.setLockTime(new Timestamp(generateTimeLong));
+
+        //2.机器号
+        Long workId = (id >> SEQUENCE_BITS) & WORK_ID_MASK;
+        guidBO.setWorkId(workId);
+
+        //3.机器ip
+        guidBO.setWorkIpAddr(parseWorkerIp(workId));
+
+        //4.序列号
+        guidBO.setSequence(id & SEQUENCE_MASK);
+
+        return guidBO;
     }
 }
 
