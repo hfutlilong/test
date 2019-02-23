@@ -3,6 +3,7 @@ package mytest.others.other;
 import com.alibaba.fastjson.JSON;
 import common.enums.KeyValueBizTypeEnum;
 import dao.gen.mapper.KeyValuePOMapper;
+import dao.gen.mapper.KeyValuePOMapperExt;
 import dao.gen.po.KeyValuePO;
 import dao.gen.po.KeyValuePOExample;
 import mytest.base.BaseTest;
@@ -29,11 +30,11 @@ public class SpringContextTest extends BaseTest {
 
     @Test
     public void test() {
-        KeyValuePOMapper keyValuePOMapper = SpringContextUtil.getBean("keyValuePOMapper", KeyValuePOMapper.class);
+        KeyValuePOMapper keyValuePOMapper = SpringContextUtil.getBean("keyValuePOMapperExt", KeyValuePOMapperExt.class);
         KeyValuePOExample keyValuePOExample = new KeyValuePOExample();
         keyValuePOExample.createCriteria().andKeyEqualTo("GUID_WORK_ID").andBizTypeEqualTo(KeyValueBizTypeEnum.DEFAULT);
         List<KeyValuePO> keyValuePOList = keyValuePOMapper.selectByExample(keyValuePOExample);
-        System.out.println(JSON.toJSONString(keyValuePOList));
+        System.out.println("####" + JSON.toJSONString(keyValuePOList) + "####");
     }
 
 }

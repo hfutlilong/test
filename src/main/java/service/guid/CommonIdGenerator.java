@@ -80,5 +80,10 @@ public class CommonIdGenerator extends BaseWorkIdIdGenerator<Long> {
         return nextMills;
     }
 
+    @Override
+    public GuidBO parseId(Long id) {
+
+        return null;
+    }
 }
 
