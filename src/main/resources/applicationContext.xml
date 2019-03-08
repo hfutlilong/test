@@ -10,20 +10,21 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task.xsd">
-    <context:component-scan base-package="service,transcational,dubbo" />
+    <!--<context:component-scan base-package="service,transcational,dubbo" />-->
+    <context:component-scan base-package="service" />
 
     <bean class="utils.SpringContextUtil" />
 
     <!--<import resource="classpath:quartz-service.xml"/>-->
     <!--<import resource="classpath:simple-quartz-service.xml"/>-->
-    <import resource="classpath:kafka-consumer.xml" />
-    <import resource="classpath:kafka-producer.xml" />
+    <!--<import resource="classpath:kafka-consumer.xml" />-->
+    <!--<import resource="classpath:kafka-producer.xml" />-->
     <!--<import resource="classpath:spring-WebSocket.xml" />-->
     <import resource="classpath:database.xml" />
     <!-- dubbo提供者 -->
-    <import resource="classpath:dubbo-provider.xml" />
+    <!--<import resource="classpath:dubbo-provider.xml" />-->
     <!-- dubbo消费者 -->
-    <import resource="classpath:dubbo-consumer.xml" />
+    <!--<import resource="classpath:dubbo-consumer.xml" />-->
 
     <!--支持异步任务 @Async-->
     <task:executor id="executor" pool-size="8"/>

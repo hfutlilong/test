@@ -147,7 +147,7 @@
 
         <table tableName="test_json" domainObjectName="TestJsonPO" enableDeleteByExample="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="json_string" property="jsonDetail" jdbcType="JSON"
+            <columnOverride column="json_string" property="jsonDetail" jdbcType="VARCHAR"
                             javaType="entity.TestJsonDetail"
                             typeHandler="handler.JsonTypeHandler"/>
         </table>

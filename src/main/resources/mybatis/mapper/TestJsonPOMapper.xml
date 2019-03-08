@@ -3,7 +3,7 @@
 <mapper namespace="dao.gen.mapper.TestJsonPOMapper">
   <resultMap id="BaseResultMap" type="dao.gen.po.TestJsonPO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="json_string" jdbcType="JSON" property="jsonDetail" typeHandler="handler.JsonTypeHandler" />
+    <result column="json_string" jdbcType="VARCHAR" property="jsonDetail" typeHandler="handler.JsonTypeHandler" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -133,7 +133,7 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into test_json (json_string)
-    values (#{jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler})
+    values (#{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler})
   </insert>
   <insert id="insertSelective" parameterType="dao.gen.po.TestJsonPO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -147,7 +147,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="jsonDetail != null">
-        #{jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler},
+        #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
       </if>
     </trim>
   </insert>
@@ -164,7 +164,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.jsonDetail != null">
-        json_string = #{record.jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler},
+        json_string = #{record.jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
       </if>
     </set>
     <if test="_parameter != null">
@@ -174,7 +174,7 @@
   <update id="updateByExample" parameterType="map">
     update test_json
     set id = #{record.id,jdbcType=BIGINT},
-      json_string = #{record.jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler}
+      json_string = #{record.jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,14 +183,14 @@
     update test_json
     <set>
       <if test="jsonDetail != null">
-        json_string = #{jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler},
+        json_string = #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="dao.gen.po.TestJsonPO">
     update test_json
-    set json_string = #{jsonDetail,jdbcType=JSON,typeHandler=handler.JsonTypeHandler}
+    set json_string = #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
