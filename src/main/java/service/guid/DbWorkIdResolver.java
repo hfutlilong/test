@@ -1,7 +1,7 @@
 package service.guid;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.parser.Feature;
+import common.constants.LogConstant;
 import common.enums.KeyValueBizTypeEnum;
 import dao.gen.mapper.KeyValuePOMapperExt;
 import dao.gen.po.KeyValuePO;
@@ -9,7 +9,6 @@ import dao.gen.po.KeyValuePOExample;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utils.Constants;
 import utils.NetwokUtils;
 
 import javax.annotation.PostConstruct;
@@ -55,7 +54,7 @@ public class DbWorkIdResolver implements WorkIdResolver {
             try {
                 countDownLatch.await();
             } catch (Exception e) {
-                Constants.LOG.error("DbWorkIdResolver resolveWorkId error", e);
+                LogConstant.BUS.error("DbWorkIdResolver resolveWorkId error", e);
             }
         }
         return workId;
@@ -123,14 +122,14 @@ public class DbWorkIdResolver implements WorkIdResolver {
                         }
                     }
                 } catch (Exception e) {
-                    Constants.LOG.error("try resolve workId from db fail, remaining " + retryCount, e);
+                    LogConstant.BUS.error("try resolve workId from db fail, remaining " + retryCount, e);
                 }
             }
 
             if (null == workId) { // 降级为随机workId
                 workId = DbWorkIdResolver.genRandomWorkId();
             }
-            Constants.LOG.info("try resolve workId from db success, workId=" + workId);
+            LogConstant.BUS.info("try resolve workId from db success, workId=" + workId);
         } finally {
             countDownLatch.countDown();
         }

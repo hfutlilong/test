@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.gen.mapper.TestJsonPOMapper">
-  <resultMap id="BaseResultMap" type="dao.gen.po.TestJsonPO">
+<mapper namespace="dao.gen.mapper.CsaiRobotAdvancedSettingsPOMapper">
+  <resultMap id="BaseResultMap" type="dao.gen.po.CsaiRobotAdvancedSettingsPO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="json_string" jdbcType="VARCHAR" property="jsonDetail" typeHandler="handler.JsonTypeHandler" />
+    <result column="corp_id" jdbcType="BIGINT" property="corpId" />
+    <result column="advanced_settings" jdbcType="VARCHAR" property="advancedSettings" typeHandler="handler.JsonTypeHandler" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="db_update_time" jdbcType="TIMESTAMP" property="dbUpdateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -29,7 +35,7 @@
                 </when>
               </choose>
             </foreach>
-            <foreach collection="criteria.jsonDetailCriteria" item="criterion">
+            <foreach collection="criteria.advancedSettingsCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}
@@ -77,7 +83,7 @@
                 </when>
               </choose>
             </foreach>
-            <foreach collection="criteria.jsonDetailCriteria" item="criterion">
+            <foreach collection="criteria.advancedSettingsCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}
@@ -102,15 +108,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, json_string
+    id, corp_id, advanced_settings, creator, create_time, updator, update_time, db_update_time
   </sql>
-  <select id="selectByExample" parameterType="dao.gen.po.TestJsonPOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from test_json
+    from csai_robot_advanced_settings
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -121,50 +127,108 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from test_json
+    from csai_robot_advanced_settings
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from test_json
+    delete from csai_robot_advanced_settings
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="dao.gen.po.TestJsonPO">
+  <insert id="insert" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into test_json (json_string)
-    values (#{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler})
+    insert into csai_robot_advanced_settings (corp_id, advanced_settings, 
+      creator, create_time, updator, 
+      update_time, db_update_time)
+    values (#{corpId,jdbcType=BIGINT}, #{advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{dbUpdateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="dao.gen.po.TestJsonPO">
+  <insert id="insertSelective" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into test_json
+    insert into csai_robot_advanced_settings
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="jsonDetail != null">
-        json_string,
+      <if test="corpId != null">
+        corp_id,
+      </if>
+      <if test="advancedSettings != null">
+        advanced_settings,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="jsonDetail != null">
-        #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      <if test="corpId != null">
+        #{corpId,jdbcType=BIGINT},
+      </if>
+      <if test="advancedSettings != null">
+        #{advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        #{dbUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="dao.gen.po.TestJsonPOExample" resultType="java.lang.Long">
-    select count(*) from test_json
+  <select id="countByExample" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPOExample" resultType="java.lang.Long">
+    select count(*) from csai_robot_advanced_settings
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update test_json
+    update csai_robot_advanced_settings
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.jsonDetail != null">
-        json_string = #{record.jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      <if test="record.corpId != null">
+        corp_id = #{record.corpId,jdbcType=BIGINT},
+      </if>
+      <if test="record.advancedSettings != null">
+        advanced_settings = #{record.advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updator != null">
+        updator = #{record.updator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbUpdateTime != null">
+        db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,25 +236,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update test_json
+    update csai_robot_advanced_settings
     set id = #{record.id,jdbcType=BIGINT},
-      json_string = #{record.jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}
+      corp_id = #{record.corpId,jdbcType=BIGINT},
+      advanced_settings = #{record.advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      updator = #{record.updator,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="dao.gen.po.TestJsonPO">
-    update test_json
+  <update id="updateByPrimaryKeySelective" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPO">
+    update csai_robot_advanced_settings
     <set>
-      <if test="jsonDetail != null">
-        json_string = #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      <if test="corpId != null">
+        corp_id = #{corpId,jdbcType=BIGINT},
+      </if>
+      <if test="advancedSettings != null">
+        advanced_settings = #{advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="dao.gen.po.TestJsonPO">
-    update test_json
-    set json_string = #{jsonDetail,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}
+  <update id="updateByPrimaryKey" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPO">
+    update csai_robot_advanced_settings
+    set corp_id = #{corpId,jdbcType=BIGINT},
+      advanced_settings = #{advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

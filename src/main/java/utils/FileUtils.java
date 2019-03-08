@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import common.constants.LogConstant;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.*;
 import org.apache.commons.collections4.CollectionUtils;
@@ -109,7 +110,7 @@ public class FileUtils {
      */
     public static <T> File exportToExcel(List<T> excelDataList, String sheetName) {
         if (CollectionUtils.isEmpty(excelDataList)) {
-            Constants.LOG.error(
+            LogConstant.BUS.error(
                     "doExportByPoJo fail,because excelDataList is empty or the class of dataItem is not be specified");
             return null;
         }
@@ -117,7 +118,7 @@ public class FileUtils {
         Class clazz = excelDataList.get(0).getClass();
         List<Field> allExportFields = getAnnotatedFields(clazz, ExportCol.class, true);
         if (CollectionUtils.isEmpty(allExportFields)) {
-            Constants.LOG.error("doExportByPoJo fail,because exportFields is empty");
+            LogConstant.BUS.error("doExportByPoJo fail,because exportFields is empty");
             return null;
         }
         // 获取导出字段的标题
@@ -137,7 +138,7 @@ public class FileUtils {
      */
     public static <T> File exportToTxt(List<T> dataList) throws IOException {
         if (CollectionUtils.isEmpty(dataList)) {
-            Constants.LOG.error("exportToTxt fail,because dataList is empty");
+            LogConstant.BUS.error("exportToTxt fail,because dataList is empty");
             return null;
         }
         // 取列表中第一个元素的类型
@@ -145,13 +146,13 @@ public class FileUtils {
         // 获取需要导出的字段
         List<Field> exportFieldList = getAnnotatedFields(clazz, ExportCol.class, false);
         if (CollectionUtils.isEmpty(exportFieldList)) {
-            Constants.LOG.error("exportToTxt fail,because there is no any field need to export");
+            LogConstant.BUS.error("exportToTxt fail,because there is no any field need to export");
             return null;
         }
         // 创建文件
         File txtFile = new File(UUID.randomUUID() + ".txt");
         if (!txtFile.createNewFile()) {
-            Constants.LOG.error("exportToTxt fail,because create a new txt file fail");
+            LogConstant.BUS.error("exportToTxt fail,because create a new txt file fail");
             return null;
         }
         // 向文件中写数据
@@ -187,12 +188,12 @@ public class FileUtils {
      */
     public static <T> List<T> importFromFile(String extName, InputStream inputStream, Class<T> targetClazz) {
         if (null == inputStream || null == targetClazz) {
-            Constants.LOG.error("importFromFile fail:invalid parameter");
+            LogConstant.BUS.error("importFromFile fail:invalid parameter");
             return null;
         }
         List<Field> importFieldList = getAnnotatedFields(targetClazz, ImportCol.class, false);
         if (CollectionUtils.isEmpty(importFieldList)) {
-            Constants.LOG.error("no found any field need to import,ClassName:{}", targetClazz.toString());
+            LogConstant.BUS.error("no found any field need to import,ClassName:{}", targetClazz.toString());
             return null;
         }
         List<Field> validFieldList = new ArrayList<>();
@@ -204,7 +205,7 @@ public class FileUtils {
             validFieldList.add(field);
         }
         if (CollectionUtils.isEmpty(validFieldList)) {
-            Constants.LOG.error("no found any field need to import,ClassName:{}", targetClazz.toString());
+            LogConstant.BUS.error("no found any field need to import,ClassName:{}", targetClazz.toString());
             return null;
         }
         if (EXCEL_EXTENSIONS.contains(extName)) {
@@ -212,7 +213,7 @@ public class FileUtils {
         } else if (TXT_EXTENSION.equals(extName)) {
             return importFromTxtFile(inputStream, targetClazz, validFieldList);
         } else {
-            Constants.LOG.error("importFromFile fail:unsupport file tpye");
+            LogConstant.BUS.error("importFromFile fail:unsupport file tpye");
         }
         return null;
     }
@@ -264,7 +265,7 @@ public class FileUtils {
                         }
                         oneFieldHasValueAtLeast = true;
                     } catch (Exception e) {
-                        Constants.LOG.error(
+                        LogConstant.BUS.error(
                                 "convert cell value to field type:{} fail,rowIndex:{},cellIndex:{},cellValue:{},skip it",
                                 targetField.getType().getName(), rowIndex, cellIndex, cell.toString(), e);
                     }
@@ -275,7 +276,7 @@ public class FileUtils {
             }
             return resultList;
         } catch (Exception e) {
-            Constants.LOG.error("importFromExcelFile fail", e);
+            LogConstant.BUS.error("importFromExcelFile fail", e);
         } finally {
             // 关闭其中之一即可，无需重复关闭
             try {
@@ -285,7 +286,7 @@ public class FileUtils {
                     inputStream.close();
                 }
             } catch (IOException e) {
-                Constants.LOG.error("inputStream close fail", e);
+                LogConstant.BUS.error("inputStream close fail", e);
             }
         }
         return null;
@@ -330,7 +331,7 @@ public class FileUtils {
                                 ConvertUtils.convert(lineArray[i], targetField.getType()));
                         oneFieldHasValueAtLeast = true;
                     } catch (Exception e) {
-                        Constants.LOG.error("convert {} to field Type:{} fail,skip it", lineArray[i],
+                        LogConstant.BUS.error("convert {} to field Type:{} fail,skip it", lineArray[i],
                                 targetField.getType().getName(), e);
                     }
                 }
@@ -340,7 +341,7 @@ public class FileUtils {
             }
             return resultList;
         } catch (Exception e) {
-            Constants.LOG.error("importFromTxtFile fail", e);
+            LogConstant.BUS.error("importFromTxtFile fail", e);
         } finally {
             // 关闭其中之一即可，无需重复关闭
             try {
@@ -356,7 +357,7 @@ public class FileUtils {
                     }
                 }
             } catch (IOException e) {
-                Constants.LOG.error("close io fail", e);
+                LogConstant.BUS.error("close io fail", e);
             }
         }
         return null;
@@ -427,7 +428,7 @@ public class FileUtils {
             if (!file.exists()) {
                 boolean createSucc = file.createNewFile();
                 if (!createSucc) {
-                    Constants.LOG.error("create new file fail,fileName:{}", file.getName());
+                    LogConstant.BUS.error("create new file fail,fileName:{}", file.getName());
                     return file;
                 }
             }
@@ -449,20 +450,20 @@ public class FileUtils {
             sxssfWorkbook.write(fileOutputStream);
             return file;
         } catch (Exception e) {
-            Constants.LOG.error("doExportByReflection fail", e);
+            LogConstant.BUS.error("doExportByReflection fail", e);
         } finally {
             if (null != sxssfWorkbook) {
                 try {
                     sxssfWorkbook.close();
                 } catch (IOException e) {
-                    Constants.LOG.error("workbook close fail", e);
+                    LogConstant.BUS.error("workbook close fail", e);
                 }
             }
             if (null != fileOutputStream) {
                 try {
                     fileOutputStream.close();
                 } catch (IOException e) {
-                    Constants.LOG.error("fileOutputStream close fail", e);
+                    LogConstant.BUS.error("fileOutputStream close fail", e);
                 }
             }
         }
@@ -611,10 +612,10 @@ public class FileUtils {
                 if (null != getMethod) {
                     fieldValue = getMethod.invoke(invoker);
                 } else {
-                    Constants.LOG.error("can not find the Get Method of field:" + fieldName);
+                    LogConstant.BUS.error("can not find the Get Method of field:" + fieldName);
                 }
             } catch (Exception e) {
-                Constants.LOG.error("getFieldValue fail", e);
+                LogConstant.BUS.error("getFieldValue fail", e);
             }
         }
         return convertToValList(fieldValue);
@@ -636,7 +637,7 @@ public class FileUtils {
             if (null != setMethod) {
                 setMethod.invoke(invoker, params);
             } else {
-                Constants.LOG.error("can not find the set Method of field:" + fieldName);
+                LogConstant.BUS.error("can not find the set Method of field:" + fieldName);
             }
         }
     }
@@ -690,7 +691,7 @@ public class FileUtils {
         }
         Field[] declaredFields = targetClazz.getDeclaredFields();
         if (null == declaredFields || declaredFields.length <= 0) {
-            Constants.LOG.error("the Class:{} does not declaring any field", targetClazz.toString());
+            LogConstant.BUS.error("the Class:{} does not declaring any field", targetClazz.toString());
             return null;
         }
         // 筛选出被注解标记的字段

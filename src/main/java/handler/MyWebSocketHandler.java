@@ -2,8 +2,8 @@ package handler;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import common.constants.LogConstant;
 import org.springframework.web.socket.*;
-import utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class MyWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session)
             throws Exception {
-        Constants.LOG.info("connect websocket success.......");
+        LogConstant.BUS.info("connect websocket success.......");
         users.add(session);
     }
 
@@ -32,7 +32,7 @@ public class MyWebSocketHandler implements WebSocketHandler {
         Map<String, Object> msg = gson.fromJson(message.getPayload().toString(),
                 new TypeToken<Map<String, Object>>() {}.getType());
 
-        Constants.LOG.info("handleMessage......." + message.getPayload()+"..........." + msg);
+        LogConstant.BUS.info("handleMessage......." + message.getPayload()+"..........." + msg);
 
 //      session.sendMessage(message);
 
@@ -54,7 +54,7 @@ public class MyWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session,
                                       CloseStatus closeStatus) throws Exception {
-        Constants.LOG.info("connect websocket closed.......");
+        LogConstant.BUS.info("connect websocket closed.......");
         users.remove(session);
     }
 

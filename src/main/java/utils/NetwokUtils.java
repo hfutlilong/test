@@ -1,5 +1,7 @@
 package utils;
 
+import common.constants.LogConstant;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -45,7 +47,7 @@ public class NetwokUtils {
             }
             return sb.toString().toUpperCase();
         } catch (Exception e) {
-            Constants.LOG.error("getLocalMacAddr fail", e);
+            LogConstant.BUS.error("getLocalMacAddr fail", e);
         }
         return null;
     }
@@ -54,7 +56,7 @@ public class NetwokUtils {
         InetAddress address = getLocalAddress();
 
         if (null == address) {
-            Constants.LOG.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+            LogConstant.BUS.error("Could not get local host ip address, will use 127.0.0.1 instead.");
             return LOCALHOST;
         } else {
             return address.getHostAddress();
@@ -87,7 +89,7 @@ public class NetwokUtils {
                 return localAddress;
             }
         } catch (Exception e) {
-            Constants.LOG.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+            LogConstant.BUS.warn("Failed to retrieving ip address, " + e.getMessage(), e);
         }
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -104,17 +106,17 @@ public class NetwokUtils {
                                         return address;
                                     }
                                 } catch (Exception e) {
-                                    Constants.LOG.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+                                    LogConstant.BUS.warn("Failed to retrieving ip address, " + e.getMessage(), e);
                                 }
                             }
                         }
                     } catch (Exception e) {
-                        Constants.LOG.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+                        LogConstant.BUS.warn("Failed to retrieving ip address, " + e.getMessage(), e);
                     }
                 }
             }
         } catch (Exception e) {
-            Constants.LOG.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+            LogConstant.BUS.warn("Failed to retrieving ip address, " + e.getMessage(), e);
         }
 
         return localAddress;

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+scan：当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod：设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+-->
+<configuration scan="false" scanPeriod="60 seconds" debug="false">
+
+    <!-- 定义日志的根目录 本地专用  -->
+    <property name="LOG_HOME" value="E:/SelfLearnProject/test/logs" />
+
+    <!-- 日志查询平台格式要求 见 http://doc.hz.netease.com/pages/viewpage.action?pageId=53583307-->
+    <!-- 求修改appName appName不能有中划线 -->
+    <property name="GLOBAL_LOG_PATTERN" value="%d - test - %c - %p [%t] %X{logTraceId} [%C{0}:%M:%L] - %m%n" />
+
+    <!-- 控制台日志，同时会打印在catalina日志中 -->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${GLOBAL_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+    <!--  other errorlog，有利于把各种开源组件的报错打印出来，当不能匹配到其他appender时，会使用该appender -->
+    <appender name="errorLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/log/error.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/log/error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <MaxHistory>60</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${GLOBAL_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <!-- 业务日志，预定义logger，分业务模块打日志 config start -->
+    <appender name="busLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/log/bus.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/log/bus.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <MaxHistory>60</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${GLOBAL_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <logger name="busLog" level="INFO" additivity="true">
+        <appender-ref ref="busLogAppender" />
+    </logger>
+
+    <!-- trace log config start -->
+    <appender name="traceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/trace/trace.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/trace/trace.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <MaxHistory>60</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%m%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <logger name="traceLogger" level="INFO" additivity="false">
+        <appender-ref ref="traceAppender" />
+    </logger>
+
+    <logger name="com.alibaba.dubbo" level="warn" additivity="false"/>
+    <logger name="org.apache.zookeeper" level="warn" additivity="false"/>
+    <logger name="com.baidu.disconf" level="warn" additivity="false"/>
+
+    <!-- 用于特定业务的详细日志 -->
+    <appender name="dtlLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/log/dtl.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/log/dtl.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <MaxHistory>60</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${GLOBAL_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <logger name="dtlLog" level="DEBUG" additivity="false">
+        <appender-ref ref="dtlLogAppender" />
+    </logger>
+
+    <!-- 此处日志级别不要修改 -->
+    <root level="INFO">
+        <!-- 当不能匹配其他appender,才会匹配这两个appender -->
+        <!-- 控制台日志级别为ERROR，不要输出过多日志，否则catalina日志会太多 -->
+        <appender-ref ref="consoleAppender"/>
+        <!--  other errorlog，有利于把各种开源组件的报错打印出来，当不能匹配到其他appender时，会使用该appender -->
+        <appender-ref ref="errorLogAppender"/>
+    </root>
+</configuration>
