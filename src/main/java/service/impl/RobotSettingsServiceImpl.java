@@ -48,7 +48,8 @@ public class RobotSettingsServiceImpl implements RobotSettingsService {
             csaiRobotAdvancedSettingsPO.setUpdateTime(currentTimestamp);
             int rows = csaiRobotAdvancedSettingsPOMapper.insertAdvancedRobotSettings(csaiRobotAdvancedSettingsPO);
             if (rows != 1) {
-                throw new BizException(ErrorCode.DATA_INSERT_FAILED, "getAdvancedRobotSettings insert failed, corpId: " + corpId);
+                throw new BizException(ErrorCode.DATA_INSERT_FAILED,
+                        "getAdvancedRobotSettings insert failed, corpId: " + corpId);
             }
             LogConstant.BUS.info("getAdvancedRobotSettings insert success, corpId:{}.", corpId);
         }
