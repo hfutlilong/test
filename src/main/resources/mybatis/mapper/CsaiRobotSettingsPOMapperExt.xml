@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.gen.mapper.CsaiRobotSettingsPOMapperExt" >
+    <select id="queryRobotList" parameterType="java.lang.Long"
+            resultMap="dao.gen.mapper.CsaiRobotSettingsPOMapper.BaseResultMap" >
+        SELECT
+        <include refid="dao.gen.mapper.CsaiRobotSettingsPOMapper.Base_Column_List" />
+        FROM csai_robot_settings
+        WHERE corp_id = #{corpId, jdbcType=BIGINT}
+        <!-- 排序的含义：1.按创建时间先后排序；2.默认机器人排前面 -->
+        ORDER BY create_time ASC, robot_type DESC
+    </select>
+
+    <select id="queryRobotSettings" parameterType="java.lang.String"
+            resultMap="dao.gen.mapper.CsaiRobotSettingsPOMapper.BaseResultMap" >
+        SELECT
+        <include refid="dao.gen.mapper.CsaiRobotSettingsPOMapper.Base_Column_List" />
+        FROM csai_robot_settings
+        WHERE robot_id = #{robotId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getDefaultRobotId" parameterType="java.lang.Long"
+            resultType="java.lang.String" >
+        SELECT robot_id
+        FROM csai_robot_settings
+        WHERE corp_id = #{corpId, jdbcType=BIGINT}
+        AND robot_type = 1
+    </select>
+
+    <select id="countInternalName" resultType="java.lang.Integer" >
+        SELECT count(*)
+        FROM csai_robot_settings
+        WHERE corp_id = #{corpId, jdbcType=BIGINT}
+        AND internal_name = #{internalName, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertSelective" >
+        insert into csai_workorder_type_mark_category_rel
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="workorderTypeId != null" >
+                workorder_type_id,
+            </if>
+            <if test="workorderTypeName != null" >
+                workorder_type_name,
+            </if>
+            <if test="markCategoryId != null" >
+                mark_category_id,
+            </if>
+            <if test="fullPathCategoryIds != null" >
+                full_path_category_ids,
+            </if>
+            <if test="fullPathCategoryNames != null" >
+                full_path_category_names,
+            </if>
+            <if test="isDeleted != null" >
+                is_deleted,
+            </if>
+            <if test="creator != null" >
+                creator,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updator != null" >
+                updator,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="dbUpdateTime != null" >
+                db_update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="workorderTypeId != null" >
+                #{workorderTypeId,jdbcType=BIGINT},
+            </if>
+            <if test="workorderTypeName != null" >
+                #{workorderTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="markCategoryId != null" >
+                #{markCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="fullPathCategoryIds != null" >
+                #{fullPathCategoryIds,jdbcType=VARCHAR},
+            </if>
+            <if test="fullPathCategoryNames != null" >
+                #{fullPathCategoryNames,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null" >
+                #{isDeleted,jdbcType=TINYINT,typeHandler=com.netease.kaola.afs.csai.dao.corpus.typeHandler.DeleteStatusEnumTypeHandler},
+            </if>
+            <if test="creator != null" >
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null" >
+                #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateTime != null" >
+                #{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

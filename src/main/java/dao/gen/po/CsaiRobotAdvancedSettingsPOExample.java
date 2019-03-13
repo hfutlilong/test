@@ -1,6 +1,6 @@
 package dao.gen.po;
 
-import entity.AdvancedRobotSettingsDTO;
+import entity.robot.AdvancedRobotSettingsDTO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

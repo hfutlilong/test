@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.gen.mapper.CsaiRobotSettingsPOMapper">
+  <resultMap id="BaseResultMap" type="dao.gen.po.CsaiRobotSettingsPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="robot_id" jdbcType="VARCHAR" property="robotId" />
+    <result column="corp_id" jdbcType="BIGINT" property="corpId" />
+    <result column="logo_url" jdbcType="VARCHAR" property="logoUrl" />
+    <result column="internal_name" jdbcType="VARCHAR" property="internalName" />
+    <result column="external_name" jdbcType="VARCHAR" property="externalName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="robot_type" jdbcType="TINYINT" property="robotType" typeHandler="handler.RobotTypeEnumTypeHandler" />
+    <result column="robot_status" jdbcType="TINYINT" property="robotStatus" typeHandler="handler.RobotStatusEnumTypeHandler" />
+    <result column="search_accurate_answer_threshold" jdbcType="DECIMAL" property="searchAccurateAnswerThreshold" />
+    <result column="search_recommend_answer_threshold" jdbcType="DECIMAL" property="searchRecommendAnswerThreshold" />
+    <result column="search_priority" jdbcType="TINYINT" property="searchPriority" />
+    <result column="keyword_accurate_answer_threshold" jdbcType="DECIMAL" property="keywordAccurateAnswerThreshold" />
+    <result column="keyword_priority" jdbcType="TINYINT" property="keywordPriority" />
+    <result column="greeting_accurate_answer_threshold" jdbcType="DECIMAL" property="greetingAccurateAnswerThreshold" />
+    <result column="greeting_priority" jdbcType="TINYINT" property="greetingPriority" />
+    <result column="search_lib_category" jdbcType="VARCHAR" property="searchLibCategory" />
+    <result column="greeting_lib_category" jdbcType="VARCHAR" property="greetingLibCategory" />
+    <result column="syncAlgorithm" jdbcType="TINYINT" property="syncalgorithm" />
+    <result column="robot_token" jdbcType="VARCHAR" property="robotToken" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="db_update_time" jdbcType="TIMESTAMP" property="dbUpdateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.robotTypeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotTypeEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.RobotTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.RobotTypeEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.robotStatusCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotStatusEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotStatusEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.RobotStatusEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.RobotStatusEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.robotTypeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotTypeEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.RobotTypeEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.RobotTypeEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.robotStatusCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotStatusEnumTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=handler.RobotStatusEnumTypeHandler} and #{criterion.secondValue,typeHandler=handler.RobotStatusEnumTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=handler.RobotStatusEnumTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, robot_id, corp_id, logo_url, internal_name, external_name, remark, robot_type, 
+    robot_status, search_accurate_answer_threshold, search_recommend_answer_threshold, 
+    search_priority, keyword_accurate_answer_threshold, keyword_priority, greeting_accurate_answer_threshold, 
+    greeting_priority, search_lib_category, greeting_lib_category, syncAlgorithm, robot_token, 
+    creator, create_time, updator, update_time, db_update_time
+  </sql>
+  <select id="selectByExample" parameterType="dao.gen.po.CsaiRobotSettingsPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from csai_robot_settings
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from csai_robot_settings
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from csai_robot_settings
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dao.gen.po.CsaiRobotSettingsPO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into csai_robot_settings (robot_id, corp_id, logo_url, 
+      internal_name, external_name, remark, 
+      robot_type, robot_status, 
+      search_accurate_answer_threshold, search_recommend_answer_threshold, 
+      search_priority, keyword_accurate_answer_threshold, 
+      keyword_priority, greeting_accurate_answer_threshold, 
+      greeting_priority, search_lib_category, greeting_lib_category, 
+      syncAlgorithm, robot_token, creator, 
+      create_time, updator, update_time, 
+      db_update_time)
+    values (#{robotId,jdbcType=VARCHAR}, #{corpId,jdbcType=BIGINT}, #{logoUrl,jdbcType=VARCHAR}, 
+      #{internalName,jdbcType=VARCHAR}, #{externalName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler}, #{robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler}, 
+      #{searchAccurateAnswerThreshold,jdbcType=DECIMAL}, #{searchRecommendAnswerThreshold,jdbcType=DECIMAL}, 
+      #{searchPriority,jdbcType=TINYINT}, #{keywordAccurateAnswerThreshold,jdbcType=DECIMAL}, 
+      #{keywordPriority,jdbcType=TINYINT}, #{greetingAccurateAnswerThreshold,jdbcType=DECIMAL}, 
+      #{greetingPriority,jdbcType=TINYINT}, #{searchLibCategory,jdbcType=VARCHAR}, #{greetingLibCategory,jdbcType=VARCHAR}, 
+      #{syncalgorithm,jdbcType=TINYINT}, #{robotToken,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{dbUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="dao.gen.po.CsaiRobotSettingsPO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into csai_robot_settings
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="robotId != null">
+        robot_id,
+      </if>
+      <if test="corpId != null">
+        corp_id,
+      </if>
+      <if test="logoUrl != null">
+        logo_url,
+      </if>
+      <if test="internalName != null">
+        internal_name,
+      </if>
+      <if test="externalName != null">
+        external_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="robotType != null">
+        robot_type,
+      </if>
+      <if test="robotStatus != null">
+        robot_status,
+      </if>
+      <if test="searchAccurateAnswerThreshold != null">
+        search_accurate_answer_threshold,
+      </if>
+      <if test="searchRecommendAnswerThreshold != null">
+        search_recommend_answer_threshold,
+      </if>
+      <if test="searchPriority != null">
+        search_priority,
+      </if>
+      <if test="keywordAccurateAnswerThreshold != null">
+        keyword_accurate_answer_threshold,
+      </if>
+      <if test="keywordPriority != null">
+        keyword_priority,
+      </if>
+      <if test="greetingAccurateAnswerThreshold != null">
+        greeting_accurate_answer_threshold,
+      </if>
+      <if test="greetingPriority != null">
+        greeting_priority,
+      </if>
+      <if test="searchLibCategory != null">
+        search_lib_category,
+      </if>
+      <if test="greetingLibCategory != null">
+        greeting_lib_category,
+      </if>
+      <if test="syncalgorithm != null">
+        syncAlgorithm,
+      </if>
+      <if test="robotToken != null">
+        robot_token,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="robotId != null">
+        #{robotId,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null">
+        #{corpId,jdbcType=BIGINT},
+      </if>
+      <if test="logoUrl != null">
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="internalName != null">
+        #{internalName,jdbcType=VARCHAR},
+      </if>
+      <if test="externalName != null">
+        #{externalName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="robotType != null">
+        #{robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler},
+      </if>
+      <if test="robotStatus != null">
+        #{robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler},
+      </if>
+      <if test="searchAccurateAnswerThreshold != null">
+        #{searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="searchRecommendAnswerThreshold != null">
+        #{searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="searchPriority != null">
+        #{searchPriority,jdbcType=TINYINT},
+      </if>
+      <if test="keywordAccurateAnswerThreshold != null">
+        #{keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="keywordPriority != null">
+        #{keywordPriority,jdbcType=TINYINT},
+      </if>
+      <if test="greetingAccurateAnswerThreshold != null">
+        #{greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="greetingPriority != null">
+        #{greetingPriority,jdbcType=TINYINT},
+      </if>
+      <if test="searchLibCategory != null">
+        #{searchLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="greetingLibCategory != null">
+        #{greetingLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="syncalgorithm != null">
+        #{syncalgorithm,jdbcType=TINYINT},
+      </if>
+      <if test="robotToken != null">
+        #{robotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dao.gen.po.CsaiRobotSettingsPOExample" resultType="java.lang.Long">
+    select count(*) from csai_robot_settings
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update csai_robot_settings
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.robotId != null">
+        robot_id = #{record.robotId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corpId != null">
+        corp_id = #{record.corpId,jdbcType=BIGINT},
+      </if>
+      <if test="record.logoUrl != null">
+        logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalName != null">
+        internal_name = #{record.internalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalName != null">
+        external_name = #{record.externalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.robotType != null">
+        robot_type = #{record.robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler},
+      </if>
+      <if test="record.robotStatus != null">
+        robot_status = #{record.robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler},
+      </if>
+      <if test="record.searchAccurateAnswerThreshold != null">
+        search_accurate_answer_threshold = #{record.searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="record.searchRecommendAnswerThreshold != null">
+        search_recommend_answer_threshold = #{record.searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="record.searchPriority != null">
+        search_priority = #{record.searchPriority,jdbcType=TINYINT},
+      </if>
+      <if test="record.keywordAccurateAnswerThreshold != null">
+        keyword_accurate_answer_threshold = #{record.keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keywordPriority != null">
+        keyword_priority = #{record.keywordPriority,jdbcType=TINYINT},
+      </if>
+      <if test="record.greetingAccurateAnswerThreshold != null">
+        greeting_accurate_answer_threshold = #{record.greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="record.greetingPriority != null">
+        greeting_priority = #{record.greetingPriority,jdbcType=TINYINT},
+      </if>
+      <if test="record.searchLibCategory != null">
+        search_lib_category = #{record.searchLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greetingLibCategory != null">
+        greeting_lib_category = #{record.greetingLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syncalgorithm != null">
+        syncAlgorithm = #{record.syncalgorithm,jdbcType=TINYINT},
+      </if>
+      <if test="record.robotToken != null">
+        robot_token = #{record.robotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updator != null">
+        updator = #{record.updator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbUpdateTime != null">
+        db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update csai_robot_settings
+    set id = #{record.id,jdbcType=BIGINT},
+      robot_id = #{record.robotId,jdbcType=VARCHAR},
+      corp_id = #{record.corpId,jdbcType=BIGINT},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      internal_name = #{record.internalName,jdbcType=VARCHAR},
+      external_name = #{record.externalName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      robot_type = #{record.robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler},
+      robot_status = #{record.robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler},
+      search_accurate_answer_threshold = #{record.searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+      search_recommend_answer_threshold = #{record.searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+      search_priority = #{record.searchPriority,jdbcType=TINYINT},
+      keyword_accurate_answer_threshold = #{record.keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+      keyword_priority = #{record.keywordPriority,jdbcType=TINYINT},
+      greeting_accurate_answer_threshold = #{record.greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+      greeting_priority = #{record.greetingPriority,jdbcType=TINYINT},
+      search_lib_category = #{record.searchLibCategory,jdbcType=VARCHAR},
+      greeting_lib_category = #{record.greetingLibCategory,jdbcType=VARCHAR},
+      syncAlgorithm = #{record.syncalgorithm,jdbcType=TINYINT},
+      robot_token = #{record.robotToken,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      updator = #{record.updator,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dao.gen.po.CsaiRobotSettingsPO">
+    update csai_robot_settings
+    <set>
+      <if test="robotId != null">
+        robot_id = #{robotId,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null">
+        corp_id = #{corpId,jdbcType=BIGINT},
+      </if>
+      <if test="logoUrl != null">
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="internalName != null">
+        internal_name = #{internalName,jdbcType=VARCHAR},
+      </if>
+      <if test="externalName != null">
+        external_name = #{externalName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="robotType != null">
+        robot_type = #{robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler},
+      </if>
+      <if test="robotStatus != null">
+        robot_status = #{robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler},
+      </if>
+      <if test="searchAccurateAnswerThreshold != null">
+        search_accurate_answer_threshold = #{searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="searchRecommendAnswerThreshold != null">
+        search_recommend_answer_threshold = #{searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="searchPriority != null">
+        search_priority = #{searchPriority,jdbcType=TINYINT},
+      </if>
+      <if test="keywordAccurateAnswerThreshold != null">
+        keyword_accurate_answer_threshold = #{keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="keywordPriority != null">
+        keyword_priority = #{keywordPriority,jdbcType=TINYINT},
+      </if>
+      <if test="greetingAccurateAnswerThreshold != null">
+        greeting_accurate_answer_threshold = #{greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="greetingPriority != null">
+        greeting_priority = #{greetingPriority,jdbcType=TINYINT},
+      </if>
+      <if test="searchLibCategory != null">
+        search_lib_category = #{searchLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="greetingLibCategory != null">
+        greeting_lib_category = #{greetingLibCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="syncalgorithm != null">
+        syncAlgorithm = #{syncalgorithm,jdbcType=TINYINT},
+      </if>
+      <if test="robotToken != null">
+        robot_token = #{robotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dao.gen.po.CsaiRobotSettingsPO">
+    update csai_robot_settings
+    set robot_id = #{robotId,jdbcType=VARCHAR},
+      corp_id = #{corpId,jdbcType=BIGINT},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
+      internal_name = #{internalName,jdbcType=VARCHAR},
+      external_name = #{externalName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      robot_type = #{robotType,jdbcType=TINYINT,typeHandler=handler.RobotTypeEnumTypeHandler},
+      robot_status = #{robotStatus,jdbcType=TINYINT,typeHandler=handler.RobotStatusEnumTypeHandler},
+      search_accurate_answer_threshold = #{searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+      search_recommend_answer_threshold = #{searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+      search_priority = #{searchPriority,jdbcType=TINYINT},
+      keyword_accurate_answer_threshold = #{keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+      keyword_priority = #{keywordPriority,jdbcType=TINYINT},
+      greeting_accurate_answer_threshold = #{greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+      greeting_priority = #{greetingPriority,jdbcType=TINYINT},
+      search_lib_category = #{searchLibCategory,jdbcType=VARCHAR},
+      greeting_lib_category = #{greetingLibCategory,jdbcType=VARCHAR},
+      syncAlgorithm = #{syncalgorithm,jdbcType=TINYINT},
+      robot_token = #{robotToken,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

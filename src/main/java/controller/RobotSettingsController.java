@@ -4,12 +4,12 @@ import com.netease.haitao.core.fastjson.FastJsonUtil;
 import common.NodeCommonResponse;
 import common.constants.LogConstant;
 import common.exception.BizException;
-import entity.AdvancedRobotSettingsDTO;
+import entity.robot.AdvancedRobotSettingsDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.RobotSettingsService;
+import service.robot.RobotSettingsService;
 
 /**
  * @Description 机器人设置测试

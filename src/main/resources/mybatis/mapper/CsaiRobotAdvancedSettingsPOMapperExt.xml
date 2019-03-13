@@ -18,6 +18,10 @@
     </update>
 
     <insert id="insertAdvancedRobotSettings" parameterType="dao.gen.po.CsaiRobotAdvancedSettingsPO" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
         insert into csai_robot_advanced_settings (corp_id, advanced_settings, creator, create_time, updator, update_time)
         values (#{corpId,jdbcType=BIGINT}, #{advancedSettings,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}, #{creator,jdbcType=VARCHAR},
         #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})

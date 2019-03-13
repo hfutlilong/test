@@ -8,4 +8,5 @@
 out
 target/
 
-*log*
+*.log
+*.log.*
