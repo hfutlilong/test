@@ -1,6 +1,7 @@
 package dao.gen.po;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class CsaiRobotEntrancePO implements Serializable {
@@ -22,9 +23,9 @@ public class CsaiRobotEntrancePO implements Serializable {
 
     private String operator;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date dbUpdateTime;
+    private Timestamp dbUpdateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -100,19 +101,19 @@ public class CsaiRobotEntrancePO implements Serializable {
         this.operator = operator == null ? null : operator.trim();
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
-    public Date getDbUpdateTime() {
+    public Timestamp getDbUpdateTime() {
         return dbUpdateTime;
     }
 
-    public void setDbUpdateTime(Date dbUpdateTime) {
+    public void setDbUpdateTime(Timestamp dbUpdateTime) {
         this.dbUpdateTime = dbUpdateTime;
     }
 }

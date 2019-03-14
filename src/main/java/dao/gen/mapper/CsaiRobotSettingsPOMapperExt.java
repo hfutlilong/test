@@ -1,7 +1,6 @@
 package dao.gen.mapper;
 
 import dao.gen.po.CsaiRobotSettingsPO;
-import entity.robot.RobotSettingsDetailDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,18 +35,10 @@ public interface CsaiRobotSettingsPOMapperExt extends CsaiRobotSettingsPOMapper 
     int countInternalName(@Param("corpId")Long corpId, @Param("internalName") String internalName);
 
     /**
-     * 选择性插入
-     * @param robotId
-     * @param robotSettingsDetailDTO
+     * 只更新有值的字段
+     *
+     * @param csaiRobotSettingsPO
      * @return
      */
-    int insertSelective(@Param("robotId")String robotId, @Param("robotSettingsDetailDTO") RobotSettingsDetailDTO robotSettingsDetailDTO);
-
-    /**
-     * 选择性更新
-     * @param robotId
-     * @param robotSettingsDetailDTO
-     * @return
-     */
-    int updateSelective(@Param("robotId")String robotId, @Param("robotSettingsDetailDTO") RobotSettingsDetailDTO robotSettingsDetailDTO);
+    int updateByRobotIdSelective(CsaiRobotSettingsPO csaiRobotSettingsPO);
 }

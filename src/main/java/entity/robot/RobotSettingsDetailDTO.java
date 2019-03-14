@@ -13,9 +13,9 @@ public class RobotSettingsDetailDTO implements Serializable {
     private static final long serialVersionUID = -8053027806355831504L;
 
     /**
-     * 机器人开关
+     * 机器人开关，0-关，1-开
      */
-    private Integer switchOnOff;
+    private Integer robotStatus;
 
     /**
      * 机器人类型 0：普通机器人，1：默认机器人
@@ -42,12 +42,12 @@ public class RobotSettingsDetailDTO implements Serializable {
      */
     private List<RobotEntranceSummary> robotEntranceSummary;
 
-    public Integer getSwitchOnOff() {
-        return switchOnOff;
+    public Integer getRobotStatus() {
+        return robotStatus;
     }
 
-    public void setSwitchOnOff(Integer switchOnOff) {
-        this.switchOnOff = switchOnOff;
+    public void setRobotStatus(Integer robotStatus) {
+        this.robotStatus = robotStatus;
     }
 
     public Integer getRobotType() {

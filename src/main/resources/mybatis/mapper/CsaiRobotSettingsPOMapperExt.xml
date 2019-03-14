@@ -34,77 +34,82 @@
         AND internal_name = #{internalName, jdbcType=VARCHAR}
     </select>
 
-    <insert id="insertSelective" >
-        insert into csai_workorder_type_mark_category_rel
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="workorderTypeId != null" >
-                workorder_type_id,
+    <update id="updateByRobotIdSelective" parameterType="dao.gen.po.CsaiRobotSettingsPO" >
+        update csai_robot_settings
+        <set >
+            <if test="robotId != null" >
+                robot_id = #{robotId,jdbcType=VARCHAR},
             </if>
-            <if test="workorderTypeName != null" >
-                workorder_type_name,
+            <if test="corpId != null" >
+                corp_id = #{corpId,jdbcType=BIGINT},
             </if>
-            <if test="markCategoryId != null" >
-                mark_category_id,
+            <if test="logoUrl != null" >
+                logo_url = #{logoUrl,jdbcType=VARCHAR},
             </if>
-            <if test="fullPathCategoryIds != null" >
-                full_path_category_ids,
+            <if test="internalName != null" >
+                internal_name = #{internalName,jdbcType=VARCHAR},
             </if>
-            <if test="fullPathCategoryNames != null" >
-                full_path_category_names,
+            <if test="externalName != null" >
+                external_name = #{externalName,jdbcType=VARCHAR},
             </if>
-            <if test="isDeleted != null" >
-                is_deleted,
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="robotType != null" >
+                robot_type = #{robotType,jdbcType=TINYINT,typeHandler=com.netease.kaola.afs.csai.dao.robot.typeHandler.RobotTypeEnumTypeHandler},
+            </if>
+            <if test="robotStatus != null" >
+                robot_status = #{robotStatus,jdbcType=TINYINT,typeHandler=com.netease.kaola.afs.csai.dao.robot.typeHandler.RobotStatusEnumTypeHandler},
+            </if>
+            <if test="searchAccurateAnswerThreshold != null" >
+                search_accurate_answer_threshold = #{searchAccurateAnswerThreshold,jdbcType=DECIMAL},
+            </if>
+            <if test="searchRecommendAnswerThreshold != null" >
+                search_recommend_answer_threshold = #{searchRecommendAnswerThreshold,jdbcType=DECIMAL},
+            </if>
+            <if test="searchPriority != null" >
+                search_priority = #{searchPriority,jdbcType=TINYINT},
+            </if>
+            <if test="keywordAccurateAnswerThreshold != null" >
+                keyword_accurate_answer_threshold = #{keywordAccurateAnswerThreshold,jdbcType=DECIMAL},
+            </if>
+            <if test="keywordPriority != null" >
+                keyword_priority = #{keywordPriority,jdbcType=TINYINT},
+            </if>
+            <if test="greetingAccurateAnswerThreshold != null" >
+                greeting_accurate_answer_threshold = #{greetingAccurateAnswerThreshold,jdbcType=DECIMAL},
+            </if>
+            <if test="greetingPriority != null" >
+                greeting_priority = #{greetingPriority,jdbcType=TINYINT},
+            </if>
+            <if test="searchLibCategory != null" >
+                search_lib_category = #{searchLibCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="greetingLibCategory != null" >
+                greeting_lib_category = #{greetingLibCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="syncalgorithm != null" >
+                syncAlgorithm = #{syncalgorithm,jdbcType=TINYINT},
+            </if>
+            <if test="robotToken != null" >
+                robot_token = #{robotToken,jdbcType=VARCHAR},
             </if>
             <if test="creator != null" >
-                creator,
+                creator = #{creator,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null" >
-                create_time,
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updator != null" >
-                updator,
+                updator = #{updator,jdbcType=VARCHAR},
             </if>
             <if test="updateTime != null" >
-                update_time,
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="dbUpdateTime != null" >
-                db_update_time,
+                db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
             </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="workorderTypeId != null" >
-                #{workorderTypeId,jdbcType=BIGINT},
-            </if>
-            <if test="workorderTypeName != null" >
-                #{workorderTypeName,jdbcType=VARCHAR},
-            </if>
-            <if test="markCategoryId != null" >
-                #{markCategoryId,jdbcType=BIGINT},
-            </if>
-            <if test="fullPathCategoryIds != null" >
-                #{fullPathCategoryIds,jdbcType=VARCHAR},
-            </if>
-            <if test="fullPathCategoryNames != null" >
-                #{fullPathCategoryNames,jdbcType=VARCHAR},
-            </if>
-            <if test="isDeleted != null" >
-                #{isDeleted,jdbcType=TINYINT,typeHandler=com.netease.kaola.afs.csai.dao.corpus.typeHandler.DeleteStatusEnumTypeHandler},
-            </if>
-            <if test="creator != null" >
-                #{creator,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null" >
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updator != null" >
-                #{updator,jdbcType=VARCHAR},
-            </if>
-            <if test="updateTime != null" >
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="dbUpdateTime != null" >
-                #{dbUpdateTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
+        </set>
+        where robot_id = #{robotId,jdbcType=VARCHAR}
+    </update>
 </mapper>
