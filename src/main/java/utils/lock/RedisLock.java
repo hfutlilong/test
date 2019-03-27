@@ -2,6 +2,7 @@ package utils.lock;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
@@ -13,10 +14,12 @@ public class RedisLock {
     private static final int DEFAULT_EXPIRE_TIME = 60 * 1000;
     private static final long DEFAULT_SLEEP_TIME = 100;
 
-    private JedisPool jedisPool;
+    private String redisIp = "192.168.160.128";
+    private int redisPort = 6379;
+    private JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), redisIp, redisPort);
 
-    public RedisLock(JedisPool jedisPool) {
-        this.jedisPool = jedisPool;
+    public RedisLock() {
+
     }
 
     public void lock(String key, String value) throws InterruptedException {

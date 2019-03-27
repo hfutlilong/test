@@ -2,8 +2,6 @@ package mytest.redis;
 
 import mytest.base.BaseTest;
 import org.testng.annotations.Test;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import utils.lock.RedisLock;
 
 
@@ -13,10 +11,7 @@ import utils.lock.RedisLock;
  * @Date 2019-03-27 20:38
  */
 public class RedisLockTest extends BaseTest {
-    private String redisIp = "192.168.160.128";
-    private int redisPort = 6379;
-    private JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), redisIp, redisPort);
-    private RedisLock redisLock = new RedisLock(jedisPool);
+    private RedisLock redisLock = new RedisLock();
 
     @Test
     public void testLock() {
