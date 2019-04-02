@@ -54,6 +54,10 @@
         <table tableName="user2" domainObjectName="User2" enableDeleteByExample="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <table tableName="user_info" domainObjectName="UserInfoPO" enableDeleteByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 
     <context id="key_value_gen" targetRuntime="MyBatis3">
