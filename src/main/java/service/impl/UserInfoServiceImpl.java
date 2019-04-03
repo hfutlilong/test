@@ -22,7 +22,28 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoPOMapperExt userInfoPOMapper;
 
     @Override
-    public void batchInsert(List<UserInfoDTO> userInfoDTOList) {
+    public int insert(UserInfoDTO userInfoDTO) {
+        return 0;
+    }
+
+    @Override
+    public int insertOnDuplicateUpdate(UserInfoDTO userInfoDTO) {
+        return 0;
+    }
+
+    @Override
+    public int batchInsert(List<UserInfoDTO> userInfoDTOList) {
+        List<UserInfoPO> userInfoPOList = this.convertUserInfoDTO2PO(userInfoDTOList);
+        return userInfoPOMapper.batchInsert(userInfoPOList);
+    }
+
+    @Override
+    public int batchUpdate(List<UserInfoDTO> userInfoDTOList) {
+        List<UserInfoPO> userInfoPOList = this.convertUserInfoDTO2PO(userInfoDTOList);
+        return userInfoPOMapper.batchUpdate(userInfoPOList);
+    }
+
+    private List<UserInfoPO> convertUserInfoDTO2PO(List<UserInfoDTO> userInfoDTOList) {
         List<UserInfoPO> userInfoPOList = new ArrayList<>();
 
         userInfoDTOList.forEach(userInfoDTO -> {
@@ -31,6 +52,6 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfoPOList.add(userInfoPO);
         });
 
-        userInfoPOMapper.batchInsert(userInfoPOList);
+        return userInfoPOList;
     }
 }
