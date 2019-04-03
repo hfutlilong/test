@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.gen.mapper.KeyValueJsonPOMapperExt">
+    <select id="queryKeyValue" resultMap="dao.gen.mapper.KeyValueJsonPOMapper.BaseResultMap">
+        SELECT
+        <include refid="dao.gen.mapper.KeyValueJsonPOMapper.Base_Column_List"/>
+        FROM key_value_json
+        WHERE biz_type = #{bizType, jdbcType=VARCHAR} AND `key` = #{key,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateKeyValue" parameterType="dao.gen.po.KeyValueJsonPO">
+        UPDATE key_value_json
+        SET `value` = #{value,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler},
+        WHERE biz_type = #{bizType, jdbcType=VARCHAR} AND `key` = #{key,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertKeyValue" parameterType="dao.gen.po.KeyValueJsonPO">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into key_value_json (biz_type, `key`, `value`)
+        values (
+            #{bizType,jdbcType=VARCHAR},
+            #{key,jdbcType=VARCHAR},
+            #{value,jdbcType=VARCHAR,typeHandler=handler.JsonTypeHandler}
+        )
+    </insert>
+</mapper>

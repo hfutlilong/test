@@ -7,6 +7,11 @@
     <classPathEntry location="D:/maven/repo/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" />
 
     <context id="test" targetRuntime="MyBatis3">
+        <!-- 处理数据库字段为sql关键字的情况 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
         <!-- 这里引入扩展插件 -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
@@ -57,6 +62,13 @@
 
         <table tableName="user_info" domainObjectName="UserInfoPO" enableDeleteByExample="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="key_value_json" domainObjectName="KeyValueJsonPO" enableDeleteByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="value" property="value" jdbcType="VARCHAR"
+                            javaType="entity.dto.KeyValueJsonDTO"
+                            typeHandler="handler.JsonTypeHandler"/>
         </table>
     </context>
 
