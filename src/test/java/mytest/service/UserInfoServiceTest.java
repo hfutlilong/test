@@ -21,9 +21,9 @@ public class UserInfoServiceTest extends BaseTest {
     @Test
     public void testBatchInsert() {
         List<UserInfoDTO> userInfoPOList = new ArrayList<>();
-        userInfoPOList.add(new UserInfoDTO(1, "a"));
-        userInfoPOList.add(new UserInfoDTO(2, "b"));
-        userInfoPOList.add(new UserInfoDTO(3, "c"));
+        userInfoPOList.add(new UserInfoDTO(4, "a1"));
+        userInfoPOList.add(new UserInfoDTO(5, "b1"));
+        userInfoPOList.add(new UserInfoDTO(6, "c1"));
 
         userInfoService.batchInsert(userInfoPOList);
     }
