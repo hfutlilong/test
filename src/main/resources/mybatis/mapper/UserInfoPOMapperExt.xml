@@ -48,7 +48,7 @@
     </insert>
 
     <update id="updateSelective" parameterType="dao.gen.po.UserInfoPO" >
-        update user_info
+        UPDATE user_info
         <set >
             <if test="id != null" >
                 id = #{id,jdbcType=BIGINT},
@@ -63,7 +63,7 @@
                 db_update_time = #{dbUpdateTime,,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where
+        WHERE
         <trim prefixOverrides="and | or">
             <if test="id != null">
                 AND id = #{id,jdbcType=BIGINT}
@@ -87,28 +87,28 @@
 
     <update id="batchUpdate" parameterType="java.util.List">
         <foreach collection="list" item="userInfoPO"  separator=";">
-            update user_info
+            UPDATE user_info
             <set >
-                <if test="id != null" >
-                    id = #{id,jdbcType=BIGINT},
+                <if test="userInfoPO.id != null" >
+                    id = #{userInfoPO.id,jdbcType=BIGINT},
                 </if>
-                <if test="userId != null" >
-                    user_id = #{userId,jdbcType=INTEGER},
+                <if test="userInfoPO.userId != null" >
+                    user_id = #{userInfoPO.userId,jdbcType=INTEGER},
                 </if>
-                <if test="userName != null" >
-                    user_name = #{userName,jdbcType=VARCHAR},
+                <if test="userInfoPO.userName != null" >
+                    user_name = #{userInfoPO.userName,jdbcType=VARCHAR},
                 </if>
-                <if test="dbUpdateTime != null" >
-                    db_update_time = #{dbUpdateTime,,jdbcType=TIMESTAMP},
+                <if test="userInfoPO.dbUpdateTime != null" >
+                    db_update_time = #{userInfoPO.dbUpdateTime,,jdbcType=TIMESTAMP},
                 </if>
             </set>
-            where
+            WHERE
             <trim prefixOverrides="and | or">
-                <if test="id != null">
-                    AND id = #{id,jdbcType=BIGINT}
+                <if test="userInfoPO.id != null">
+                    AND id = #{userInfoPO.id,jdbcType=BIGINT}
                 </if>
-                <if test="userId != null" >
-                    AND user_id = #{userId,jdbcType=INTEGER}
+                <if test="userInfoPO.userId != null" >
+                    AND user_id = #{userInfoPO.userId,jdbcType=INTEGER}
                 </if>
             </trim>
         </foreach>

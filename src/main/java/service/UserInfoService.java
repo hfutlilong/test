@@ -10,7 +10,7 @@ public interface UserInfoService {
      * @param userInfoDTO
      * @return
      */
-    int insert(UserInfoDTO userInfoDTO);
+    int insertSelective(UserInfoDTO userInfoDTO);
 
     /**
      * 插入一条记录，如果唯一键冲突则更新

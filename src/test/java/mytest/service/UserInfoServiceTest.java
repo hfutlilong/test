@@ -27,4 +27,25 @@ public class UserInfoServiceTest extends BaseTest {
 
         userInfoService.batchInsert(userInfoPOList);
     }
+
+    @Test
+    public void testInsertSelective() {
+        UserInfoDTO UserInfoDTO = new UserInfoDTO(7, "a2");
+        userInfoService.insertSelective(UserInfoDTO);
+    }
+
+    @Test
+    public void testInsertOnDuplicateUpdate() {
+        UserInfoDTO UserInfoDTO = new UserInfoDTO(7, "a3");
+        userInfoService.insertOnDuplicateUpdate(UserInfoDTO);
+    }
+
+    @Test
+    public void testBatchUpdate() {
+        List<UserInfoDTO> userInfoPOList = new ArrayList<>();
+        userInfoPOList.add(new UserInfoDTO(4, "a2"));
+        userInfoPOList.add(new UserInfoDTO(5, "b2"));
+        userInfoPOList.add(new UserInfoDTO(6, "c2"));
+        userInfoService.batchUpdate(userInfoPOList);
+    }
 }
