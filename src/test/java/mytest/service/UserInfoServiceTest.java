@@ -30,8 +30,8 @@ public class UserInfoServiceTest extends BaseTest {
 
     @Test
     public void testInsertSelective() {
-        UserInfoDTO UserInfoDTO = new UserInfoDTO(7, "a2");
-        userInfoService.insertSelective(UserInfoDTO);
+        userInfoService.insertSelective(new UserInfoDTO(8, "m"));
+        userInfoService.insertSelective(new UserInfoDTO(9, null));
     }
 
     @Test
