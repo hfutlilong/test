@@ -40,7 +40,7 @@ public class LoginController {
             // 把用户名保存在Cookie里
             Cookie cookie = new Cookie("username", username);
             cookie.setMaxAge(60); // 单位：秒
-            cookie.setPath("/");
+            cookie.setPath("/"); // cookie作用范围
             response.addCookie(cookie);
 
             return "welcome";
@@ -96,7 +96,7 @@ public class LoginController {
                     System.out.println(URLDecoder.decode(cookie.getName(), "utf-8"));
                     if (URLDecoder.decode(cookie.getName(), "utf-8").equals("username")) { // 表明已经登陆过了，就直接跳转了
                         cookie.setMaxAge(0);
-                        cookie.setPath("/");
+                        cookie.setPath("/"); // cookie作用范围
                         response.addCookie(cookie);
                     }
                 }
