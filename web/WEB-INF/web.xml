@@ -33,7 +33,8 @@
     <!-- CAS登录认证 -->
     <filter>
         <filter-name>loginFilter</filter-name>
-        <filter-class>filter.LoginFilter</filter-class>
+<!--        <filter-class>filter.LoginFilter</filter-class>-->
+        <filter-class>filter.CookieFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
