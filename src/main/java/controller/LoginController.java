@@ -3,6 +3,7 @@ package controller;
 import entity.vo.UserLoginVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,9 +65,14 @@ public class LoginController {
         userLoginVO.setPassword(password1);
         userLoginVO.setEmail(email);
 
-        userLoginService.register(userLoginVO);
-
-        return "注册成功";
+        try {
+            userLoginService.register(userLoginVO);
+            return "注册成功";
+        } catch (DuplicateKeyException e) {
+            return "该邮箱已注册过账号";
+        } catch (Exception e) {
+            return "注册失败";
+        }
     }
 
     @RequestMapping("/logout")

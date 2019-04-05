@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<form action="/user/registerAction.do" method="post">
+<form action="user/registerAction.do" method="post">
     <table>
         <tr>
             <td colspan="2">注册窗口</td>
@@ -39,7 +39,7 @@
             <td><input type="text" name="email" /></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="注册" /> <a href="login.jsp">返回</a></td>
+            <td colspan="2"><input type="submit" value="注册" /> <a href="user/login.do">返回</a></td>
         </tr>
     </table>
 </form>
