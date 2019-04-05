@@ -33,6 +33,7 @@ public class LoginController {
     public String loginAction(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         UserLoginVO userLoginVO = userLoginService.queryUserByNamePwd(username, password);
         if (userLoginVO != null) {
+            request.getSession().setAttribute("isLogin", true);
             return "welcome";
         }
 
@@ -79,6 +80,7 @@ public class LoginController {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("username");
         try {
+            request.getSession().setAttribute("isLogin", false);
             response.sendRedirect("/user/login.do");
         } catch (IOException e) {
             e.printStackTrace();
