@@ -64,6 +64,10 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
+        <table tableName="user_login" domainObjectName="UserLoginPO" enableDeleteByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
         <table tableName="key_value_json" domainObjectName="KeyValueJsonPO" enableDeleteByExample="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="value" property="value" jdbcType="VARCHAR"
