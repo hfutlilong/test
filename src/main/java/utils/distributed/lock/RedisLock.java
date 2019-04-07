@@ -1,4 +1,4 @@
-package utils.lock;
+package utils.distributed.lock;
 
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
@@ -9,6 +9,9 @@ import redis.clients.jedis.params.SetParams;
 import java.util.Collections;
 import java.util.UUID;
 
+/**
+ * Redis分布式锁
+ */
 public class RedisLock {
     /**
      * 每个线程持有自己的uuid，用于区分不同的锁

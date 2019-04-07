@@ -1,4 +1,4 @@
-package utils.lock;
+package utils.distributed.lock;
 
 /**
  * @Description 时间单位

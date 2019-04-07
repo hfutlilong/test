@@ -1,6 +1,6 @@
-package mytest.redis;
+package mytest.distributed.lock;
 
-import utils.lock.RedisLock;
+import utils.distributed.lock.RedisLock;
 
 import java.util.concurrent.*;
 
