@@ -35,13 +35,13 @@ public class LoginController {
     public String loginAction(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         UserLoginVO userLoginVO = userLoginService.queryUserByNamePwd(username, password);
         if (userLoginVO != null) {
-//            request.getSession().setAttribute("isLogin", true);
+            request.getSession().setAttribute("isLogin", true);
 
             // 把用户名保存在Cookie里
-            Cookie cookie = new Cookie("username", username);
-            cookie.setMaxAge(60); // 单位：秒
-            cookie.setPath("/"); // cookie作用范围
-            response.addCookie(cookie);
+//            Cookie cookie = new Cookie("username", username);
+//            cookie.setMaxAge(60); // 单位：秒
+//            cookie.setPath("/"); // cookie作用范围
+//            response.addCookie(cookie);
 
             return "welcome";
         }
@@ -87,21 +87,21 @@ public class LoginController {
 
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute("username");
+//        request.getSession().removeAttribute("username");
         try {
             //把过期时间设置成0秒，表示删除该属性
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    System.out.println(URLDecoder.decode(cookie.getName(), "utf-8"));
-                    if (URLDecoder.decode(cookie.getName(), "utf-8").equals("username")) { // 表明已经登陆过了，就直接跳转了
-                        cookie.setMaxAge(0);
-                        cookie.setPath("/"); // cookie作用范围
-                        response.addCookie(cookie);
-                    }
-                }
-            }
-//            request.getSession().setAttribute("isLogin", false);
+//            Cookie[] cookies = request.getCookies();
+//            if (cookies != null) {
+//                for (Cookie cookie : cookies) {
+//                    System.out.println(URLDecoder.decode(cookie.getName(), "utf-8"));
+//                    if (URLDecoder.decode(cookie.getName(), "utf-8").equals("username")) { // 表明已经登陆过了，就直接跳转了
+//                        cookie.setMaxAge(0);
+//                        cookie.setPath("/"); // cookie作用范围
+//                        response.addCookie(cookie);
+//                    }
+//                }
+//            }
+            request.getSession().setAttribute("isLogin", false);
             response.sendRedirect("/user/login.do");
         } catch (IOException e) {
             e.printStackTrace();

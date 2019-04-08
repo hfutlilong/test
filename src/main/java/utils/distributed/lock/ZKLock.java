@@ -17,6 +17,8 @@ public class ZKLock implements DistributedLock {
 
     private InterProcessMutex lock;
 
+    public ZKLock() {}
+
     public ZKLock(String host, String bizType, String lockKey) {
         client = CuratorFrameworkFactory.newClient(host,
                 new ExponentialBackoffRetry(ZKLockConstant.BASE_SLEEP_TIME_MS, ZKLockConstant.MAX_RETRIES));

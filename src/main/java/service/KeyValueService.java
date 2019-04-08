@@ -6,11 +6,11 @@ public interface KeyValueService {
     /**
      * 查询key-value
      * 
-     * @param biz_type
+     * @param bizType
      * @param key
      * @return
      */
-    KeyValueJsonPO queryKeyValue(String biz_type, String key);
+    KeyValueJsonPO queryKeyValue(String bizType, String key);
 
     /**
      * 更新key-value

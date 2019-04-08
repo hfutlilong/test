@@ -5,6 +5,7 @@ import dao.gen.po.KeyValueJsonPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.KeyValueService;
+import utils.distributed.annotation.ZkLock;
 
 /**
  * @Description key-value
@@ -17,8 +18,9 @@ public class KeyValueServiceImpl implements KeyValueService {
     private KeyValueJsonPOMapperExt keyValueJsonPOMapper;
 
     @Override
-    public KeyValueJsonPO queryKeyValue(String biz_type, String key) {
-        return keyValueJsonPOMapper.queryKeyValue(biz_type, key);
+//    @ZkLock(zkHost = "192.168.160.128:2181", bizType = "test", lockKey = "queryKeyValue", timeout = 3000)
+    public KeyValueJsonPO queryKeyValue(String bizType, String key) {
+        return keyValueJsonPOMapper.queryKeyValue(bizType, key);
     }
 
     @Override
