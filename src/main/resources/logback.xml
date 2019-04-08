@@ -7,7 +7,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 <configuration scan="false" scanPeriod="60 seconds" debug="false">
 
     <!-- 定义日志的根目录 本地专用  -->
-    <property name="LOG_HOME" value="E:/SelfLearnProject/test/logs" />
+    <property name="LOG_HOME" value="${log.dir:-../logs}" />
 
     <!-- 日志查询平台格式要求 见 http://doc.hz.netease.com/pages/viewpage.action?pageId=53583307-->
     <!-- 求修改appName appName不能有中划线 -->
