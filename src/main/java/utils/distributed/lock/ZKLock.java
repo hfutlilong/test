@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * zk分布式锁
  */
-public class ZKLock {
+public class ZKLock implements DistributedLock {
     private CuratorFramework client;
 
     private InterProcessMutex lock;
@@ -26,8 +26,16 @@ public class ZKLock {
         lock = new InterProcessMutex(client, path);
     }
 
-    public boolean lock() {
-        return tryLock(ZKLockConstant.DEFAULT_TRY_LOCK_TIMEOUT);
+    public void lock() {
+        try {
+            lock.acquire();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean tryLock() {
+        return tryLock(0L);
     }
 
     public boolean tryLock(long timeout) {
@@ -40,8 +48,14 @@ public class ZKLock {
     }
 
 
-    public void unLock() throws Exception {
-        lock.release();
+    public boolean unLock() {
+        try {
+            lock.release();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void shutdown() {

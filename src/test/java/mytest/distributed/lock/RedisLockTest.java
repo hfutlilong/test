@@ -57,7 +57,7 @@ public class RedisLockTest {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁失败");
@@ -81,7 +81,7 @@ public class RedisLockTest {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁失败");
@@ -105,7 +105,7 @@ public class RedisLockTest {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 解锁失败");
@@ -145,21 +145,21 @@ public class RedisLockTest {
             e.printStackTrace();
         } finally {
             i = 1;
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁失败");
             }
 
             i++;
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁失败");
             }
 
             i++;
-            if (redisLock.unlock()) {
+            if (redisLock.unLock()) {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁成功");
             } else {
                 System.out.println("######### " + Thread.currentThread().getId() + " 第" + i + "次" + " 解锁失败");

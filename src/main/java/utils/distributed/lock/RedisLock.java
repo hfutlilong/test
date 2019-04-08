@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * Redis分布式锁
  */
-public class RedisLock {
+public class RedisLock implements DistributedLock {
     /**
      * 每个线程持有自己的uuid，用于区分不同的锁
      */
@@ -55,7 +55,7 @@ public class RedisLock {
      * 阻塞式锁，尝试获取锁、直到成功
      * @throws InterruptedException
      */
-    public void lock() throws InterruptedException {
+    public void lock(){
         lock(lockKey, identifier.get());
     }
 
@@ -74,11 +74,11 @@ public class RedisLock {
      * @return
      * @throws InterruptedException
      */
-    public boolean tryLock(int timeout) throws InterruptedException {
+    public boolean tryLock(long timeout) throws InterruptedException {
         return tryLock(lockKey, identifier.get(), timeout);
     }
 
-    public boolean unlock() {
+    public boolean unLock() {
         return unlock(lockKey, identifier.get());
     }
 
@@ -101,16 +101,20 @@ public class RedisLock {
     /*******************************************
      * 以下是锁的内部实现
      *******************************************/
-    private void lock(String key, String value) throws InterruptedException {
+    private void lock(String key, String value) {
         Jedis jedis = jedisPool.getResource();
-        while (true) {
-            if (setLockToRedis(key, value, jedis)) {
-                return;
+        try {
+            while (true) {
+                if (setLockToRedis(key, value, jedis)) {
+                    return;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private boolean tryLock(String key, String value, int timeout) throws InterruptedException {
+    private boolean tryLock(String key, String value, long timeout) throws InterruptedException {
         Jedis jedis = jedisPool.getResource();
 
         while (timeout >= 0) {
