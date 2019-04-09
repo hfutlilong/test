@@ -1,4 +1,4 @@
-package mytest.netty.chat;
+package netty.chat;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

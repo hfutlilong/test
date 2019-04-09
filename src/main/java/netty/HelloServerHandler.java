@@ -1,4 +1,4 @@
-package mytest.netty;
+package netty;
 
 import java.net.InetAddress;
 
