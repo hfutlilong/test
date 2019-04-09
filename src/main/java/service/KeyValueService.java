@@ -2,6 +2,8 @@ package service;
 
 import dao.gen.po.KeyValueJsonPO;
 
+import java.util.List;
+
 public interface KeyValueService {
     /**
      * 查询key-value
@@ -28,4 +30,5 @@ public interface KeyValueService {
      */
     int insertKeyValue(KeyValueJsonPO keyValueJsonPO);
 
+    List<KeyValueJsonPO> queryKvJsonList();
 }

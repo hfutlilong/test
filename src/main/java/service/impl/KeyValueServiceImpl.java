@@ -1,11 +1,14 @@
 package service.impl;
 
+import com.github.pagehelper.PageHelper;
 import dao.gen.mapper.KeyValueJsonPOMapperExt;
 import dao.gen.po.KeyValueJsonPO;
+import dao.gen.po.KeyValueJsonPOExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.KeyValueService;
-import utils.distributed.annotation.ZkLock;
+
+import java.util.List;
 
 /**
  * @Description key-value
@@ -31,5 +34,12 @@ public class KeyValueServiceImpl implements KeyValueService {
     @Override
     public int insertKeyValue(KeyValueJsonPO keyValueJsonPO) {
         return keyValueJsonPOMapper.insertKeyValue(keyValueJsonPO);
+    }
+
+    @Override
+    public List<KeyValueJsonPO> queryKvJsonList() {
+        PageHelper.startPage(1, 1);
+        KeyValueJsonPOExample example = new KeyValueJsonPOExample();
+        return keyValueJsonPOMapper.selectByExample(example);
     }
 }

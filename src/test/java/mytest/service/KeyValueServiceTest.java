@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 import service.KeyValueService;
 
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author lilong
@@ -35,5 +37,11 @@ public class KeyValueServiceTest extends BaseTest {
         keyValueJsonPO.setKey("A1");
         keyValueJsonPO.setValue(keyValueJsonDTO);
         keyValueService.insertKeyValue(keyValueJsonPO);
+    }
+
+    @Test
+    public void testQueryKvJsonList() {
+        List<KeyValueJsonPO> keyValueJsonPOList = keyValueService.queryKvJsonList();
+        System.out.println("#############" + JSON.toJSONString(keyValueJsonPOList));
     }
 }
