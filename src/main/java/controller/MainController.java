@@ -1,5 +1,9 @@
 package controller;
 
+import event.BaseEvent;
+import event.EventPublisher;
+import event.impl.AEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +18,9 @@ public class MainController {
     @Resource
     private TestTransactional testTransactional;
 
+    @Autowired
+    private EventPublisher eventPublisher;
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello(){
         return "hello";
@@ -22,6 +29,8 @@ public class MainController {
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
     public String welcome() {
+        BaseEvent event = new AEvent("fuck u very much...");
+        eventPublisher.publish(event);
         return "test Web";
     }
 

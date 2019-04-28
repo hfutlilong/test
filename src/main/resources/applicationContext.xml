@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task.xsd">
     <!--<context:component-scan base-package="service,transcational,dubbo" />-->
-    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="service, event"/>
 
     <bean class="utils.SpringContextUtil"/>
 
